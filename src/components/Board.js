@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
-import { baseBoard } from '../Words'
+import React, {useContext} from 'react';
+import {AppContext} from '../App';
+import Letter from './Letter';
 
 function Board() {
   return (
-    const [board, setBoard] = useState(baseBoard);
-    return <div className='board'>
+     <div className='board'>
 
       {/* Creo cinque righe che contengono ognuna ogni lettera, alla lettera passo la posizione e il tentativo */}
      <div className='row'>
@@ -45,6 +45,14 @@ function Board() {
        <Letter letterPos={2} attempt={4} />
        <Letter letterPos={3} attempt={4} />
        <Letter letterPos={4} attempt={4} /> 
+      </div>
+
+      <div className='row'>
+       <Letter letterPos={0} attempt={5} />
+       <Letter letterPos={1} attempt={5} />
+       <Letter letterPos={2} attempt={5} />
+       <Letter letterPos={3} attempt={5} />
+       <Letter letterPos={4} attempt={5} /> 
       </div>
      
     </div>
