@@ -35,7 +35,7 @@ function App() {
     if (wordSet.has(currWord.toLowerCase())) {
       setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 });
     } else {
-      alert("Word not found");
+      alert("La parola non esiste");
     }
 
     if (currWord === correctWord) {
@@ -71,7 +71,7 @@ function App() {
   return (
     <div className="App">
       <nav>
-        <h1>Wordle</h1>
+        <h1>Wordle Jacopo Marini</h1>
       </nav>
       <AppContext.Provider
         value={{
