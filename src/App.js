@@ -72,6 +72,8 @@ function App() {
     <div className="App">
       <nav>
         <h1>Wordle - Jacopo Marini</h1>
+        <h3>Work in progress</h3>
+        <h4>Attualmente la banca dati contiene solo parole in inglese</h4>
       </nav>
       <AppContext.Provider
         value={{
