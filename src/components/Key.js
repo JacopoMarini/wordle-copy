@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 
-function Key({ keyVal, largeKey, disabled }) {
-  const { onSelectLetter, onDelete, onEnter } =
+function Key({ keyVal, bigKey, disabled }) {
+  const { gameOver, onSelectLetter, onDelete, onEnter } =
     useContext(AppContext);
 
   const selectLetter = () => {
+    if (gameOver.gameOver) return;
     if (keyVal === "INVIO") {
       onEnter();
-    } else if (keyVal === "CANCELLA") {
+    } else if (keyVal === "ELIMINA") {
       onDelete();
     } else {
       onSelectLetter(keyVal);
@@ -17,7 +18,7 @@ function Key({ keyVal, largeKey, disabled }) {
   return (
     <div
       className="key"
-      id={largeKey ? "large" : disabled && "disabled"}
+      id={bigKey ? "large" : disabled && "disabled"}
       onClick={selectLetter}
     >
       {keyVal}

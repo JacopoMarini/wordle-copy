@@ -1,34 +1,79 @@
-import React, { useEffect, useContext } from 'react'
-import Key from './Key';
-
-
+import React, { useCallback, useEffect, useContext } from "react";
+import Key from "./Key";
+import { AppContext } from "../App";
 
 function Keyboard() {
-  // L'obiettivo è creare una taastiera fatta da 3 righe come quella del pc
-  const keysFirstRow = ["Q", "W", " E", "R", "T", "Y", "U", " I", "O", "P"];
-  const keysSecondRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-  const keysThirdRow = ["Z", "X", "C", "V", "B", "N", "M"];
-  
-  
-  return <div className='keyboard'>
-    <div className='first-line'>
-      {keysFirstRow.map(key =>{
-        return <Key keyVal={key} />
-      })}
+  const keys1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
+  const keys2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
+  const keys3 = ["Z", "X", "C", "V", "B", "N", "M"];
+
+  const {
+    board,
+    disabledLetters,
+    currAttempt,
+    gameOver,
+    onSelectLetter,
+    onEnter,
+    onDelete,
+  } = useContext(AppContext);
+
+  const handleKeyboard = useCallback(
+    (event) => {
+      if (gameOver.gameOver) return;
+      if (event.key === "Enter") {
+        onEnter();
+      } else if (event.key === "Backspace") {
+        onDelete();
+      } else {
+        keys1.forEach((key) => {
+          if (event.key.toLowerCase() === key.toLowerCase()) {
+            onSelectLetter(key);
+          }
+        });
+        keys2.forEach((key) => {
+          if (event.key.toLowerCase() === key.toLowerCase()) {
+            onSelectLetter(key);
+          }
+        });
+        keys3.forEach((key) => {
+          if (event.key.toLowerCase() === key.toLowerCase()) {
+            onSelectLetter(key);
+          }
+        });
+      }
+    },
+    [currAttempt]
+  );
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyboard);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyboard);
+    };
+  }, [handleKeyboard]);
+
+  console.log(disabledLetters);
+  return (
+    <div className="keyboard" onKeyDown={handleKeyboard}>
+      <div className="first-line">
+        {keys1.map((key) => {
+          return <Key keyVal={key} disabled={disabledLetters.includes(key)} />;
+        })}
+      </div>
+      <div className="second-line">
+        {keys2.map((key) => {
+          return <Key keyVal={key} disabled={disabledLetters.includes(key)} />;
+        })}
+      </div>
+      <div className="third-line">
+        <Key keyVal={"INVIO"} bigKey />
+        {keys3.map((key) => {
+          return <Key keyVal={key} disabled={disabledLetters.includes(key)} />;
+        })}
+        <Key keyVal={"ELIMINA"} bigKey />
+      </div>
     </div>
-    <div className='second-line'>
-    {keysSecondRow.map(key =>{
-        return <Key keyVal={key} />
-      })}
-    </div>
-    <div className='third-line'>
-      <Key keyVal={'INVIO'} largeKey />
-    {keysThirdRow.map(key =>{
-        return <Key keyVal={key} />
-      })}
-      <Key keyVal={'CANCELLA'} largeKey />
-    </div>
-  </div>
+  );
 }
 
-export default Keyboard
+export default Keyboard;
