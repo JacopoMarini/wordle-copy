@@ -15,8 +15,8 @@ function GameOver() {
     <div className="gameOver">
       <h3>
         {gameOver.guessedWord
-          ? "Brava Elsina hai indovinato"
-          : "Elsina hai fallito -.-\""}
+          ? "Complimenti hai indovinato la parola"
+          : "Parola sbagliata, riprova"}
       </h3>
       <h1>Correct Word: {correctWord}</h1>
       {gameOver.guessedWord && (
